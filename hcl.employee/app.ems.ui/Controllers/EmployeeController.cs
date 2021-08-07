@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,15 +34,18 @@ namespace app.ems.ui.Controllers
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(EmployeeModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(model);
+                var data = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = EmployeeApiClient.webApiClient.PostAsync("Employee", data).Result;
+                var result = response.Content.ReadAsAsync<IEnumerable<EmployeeModel>>().Result;
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception exc)
             {
                 return View();
             }
