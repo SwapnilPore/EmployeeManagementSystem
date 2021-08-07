@@ -17,7 +17,7 @@
         <tr>
             <td>Date of birth: </td>
             <td>
-                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control datetimepicker", type = "date" } })
                     </td>
         </tr>
         <tr>
@@ -34,8 +34,12 @@
     </table>
 }
 
-<script type="text/javascript">
-    $(function () {
-        $('.datetimepicker').datetimepicker();
+<script>
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: "dd-mm-yy",
+            changemonth: true,
+            changeyear: true
+        });
     });
 </script>
