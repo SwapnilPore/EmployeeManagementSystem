@@ -1,4 +1,4 @@
-﻿@model app.ems.ui.Models.EmployeeModel
+﻿@model app.ems.ui.Models.AddEmployeeModel
 
 @{
     ViewBag.Title = "Index";
@@ -8,30 +8,46 @@
 @using (Html.BeginForm("Create", "Employee", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <table>
+<table>
 
-        <tr>
-            <td>Enter Name: </td>
-            <td>@Html.TextBoxFor(m => m.Name)</td>
-        </tr>
-        <tr>
-            <td>Date of birth: </td>
-            <td>
-                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control datetimepicker", type = "date" } })
-                    </td>
-        </tr>
-        <tr>
-            <td>Email: </td>
-            <td>@Html.TextBoxFor(m => m.Email)</td>
-        </tr>
-        <tr>
-            <td>Phone number: </td>
-            <td>@Html.TextBoxFor(m => m.PhoneNumber)</td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Submit Form" /></td>
-        </tr>
-    </table>
+    <tr>
+        <td>Enter Name: </td>
+        <td>@Html.TextBoxFor(m => m.Employee.Name)</td>
+    </tr>
+    <tr>
+        <td>Date of birth: </td>
+        <td>
+            @Html.EditorFor(m => m.Employee.DateOfBirth, new { htmlAttributes = new { @class = "form-control datetimepicker", type = "date" } })
+        </td>
+    </tr>
+    <tr>
+        <td>Email: </td>
+        <td>@Html.TextBoxFor(m => m.Employee.Email)</td>
+    </tr>
+    <tr>
+        <td>Project: </td>
+        <td>
+            @Html.DropDownListFor(m => m.Employee.ProjectId,
+                Model.Projects,
+                "Select Project")
+        </td>
+    </tr>
+    <tr>
+        <td>Designation: </td>
+        <td>
+            @Html.DropDownListFor(m => m.Employee.DesignationId,
+                Model.Designations,
+                "Select Designation")
+        </td>
+    </tr>
+    <tr>
+        <td>Phone number: </td>
+        <td>@Html.TextBoxFor(m => m.Employee.PhoneNumber)</td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="submit" value="Submit Form" /></td>
+    </tr>
+</table>
 }
 
 <script>

@@ -29,7 +29,19 @@ namespace app.ems.ui.Controllers
         // GET: Employee/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new AddEmployeeModel();
+            model.Employee = new EmployeeModel();
+
+            var projectsResponse = EmployeeApiClient.webApiClient.GetAsync("Project").Result;
+            var projectList = projectsResponse.Content.ReadAsAsync<IEnumerable<ProjectModel>>().Result;
+            model.Projects = projectList.ToList().Select(m => new SelectListItem() { Value = m.Id.ToString(), Text = m.Name });
+            IEnumerable<SelectListItem> list = projectList.ToList().Select(m => new SelectListItem() { Value = m.Id.ToString(), Text = m.Name });
+            
+            var designationsResponse = EmployeeApiClient.webApiClient.GetAsync("Designation").Result;
+            var designationList = designationsResponse.Content.ReadAsAsync<IEnumerable<DesignationModel>>().Result;
+            model.Designations = designationList.ToList().Select(m => new SelectListItem() { Value = m.Id.ToString(), Text = m.Name });
+
+            return View(model);
         }
 
         // POST: Employee/Create
@@ -41,7 +53,7 @@ namespace app.ems.ui.Controllers
                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(model);
                 var data = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = EmployeeApiClient.webApiClient.PostAsync("Employee", data).Result;
-                var result = response.Content.ReadAsAsync<IEnumerable<EmployeeModel>>().Result;
+               // var result = response.Content.ReadAsAsync<IEnumerable<EmployeeModel>>().Result;
 
                 return RedirectToAction("Index");
             }
