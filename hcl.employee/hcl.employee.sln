@@ -7,6 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hcl.employee", "hcl.employe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hcl.employee.api", "hcl.employee.api\hcl.employee.api.csproj", "{BEBCE151-A4EB-428B-B3AB-19962A077949}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hcl.database", "hcl.database", "{6C360AB7-D271-4AE0-B523-8BFD47FFAD39}"
+	ProjectSection(SolutionItems) = preProject
+		hcl.database\Designation.sql = hcl.database\Designation.sql
+		hcl.database\Employee.sql = hcl.database\Employee.sql
+		hcl.database\Project.sql = hcl.database\Project.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
