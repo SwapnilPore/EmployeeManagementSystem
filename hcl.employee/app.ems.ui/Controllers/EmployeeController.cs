@@ -46,11 +46,11 @@ namespace app.ems.ui.Controllers
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(EmployeeModel model)
+        public ActionResult Create(AddEmployeeModel model)
         {
             try
             {
-                var json = Newtonsoft.Json.JsonConvert.SerializeObject(model);
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(model.Employee);
                 var data = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = EmployeeApiClient.webApiClient.PostAsync("Employee", data).Result;
                // var result = response.Content.ReadAsAsync<IEnumerable<EmployeeModel>>().Result;
