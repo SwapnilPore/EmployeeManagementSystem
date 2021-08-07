@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hcl.database", "hcl.databas
 		hcl.database\Project.sql = hcl.database\Project.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.ems.api", "..\..\EMS\app.ems.api\app.ems.api.csproj", "{F79F764D-9011-4BFB-850A-932F1626C644}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.ems.ui", "..\..\EMS\app.ems.ui\app.ems.ui.csproj", "{A2FB90A1-8D05-4D90-93B6-CFB871C0BDF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +32,14 @@ Global
 		{BEBCE151-A4EB-428B-B3AB-19962A077949}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEBCE151-A4EB-428B-B3AB-19962A077949}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEBCE151-A4EB-428B-B3AB-19962A077949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F79F764D-9011-4BFB-850A-932F1626C644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F79F764D-9011-4BFB-850A-932F1626C644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F79F764D-9011-4BFB-850A-932F1626C644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F79F764D-9011-4BFB-850A-932F1626C644}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2FB90A1-8D05-4D90-93B6-CFB871C0BDF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2FB90A1-8D05-4D90-93B6-CFB871C0BDF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2FB90A1-8D05-4D90-93B6-CFB871C0BDF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2FB90A1-8D05-4D90-93B6-CFB871C0BDF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
