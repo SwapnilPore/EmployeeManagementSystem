@@ -7,14 +7,35 @@
 
 @using (Html.BeginForm("Form2", "Home", FormMethod.Post))
 {
-<table>
+    @Html.AntiForgeryToken()
+    <table>
 
-    <tr>
-        <td>Enter Name: </td>
-        <td>@Html.TextBoxFor(m => m.Name)</td>
-    </tr>
-    <tr>
-        <td colspan="2"><input type="submit" value="Submit Form" /></td>
-    </tr>
-</table>
+        <tr>
+            <td>Enter Name: </td>
+            <td>@Html.TextBoxFor(m => m.Name)</td>
+        </tr>
+        <tr>
+            <td>Date of birth: </td>
+            <td>
+                @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                    </td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td>@Html.TextBoxFor(m => m.Email)</td>
+        </tr>
+        <tr>
+            <td>Phone number: </td>
+            <td>@Html.TextBoxFor(m => m.PhoneNumber)</td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Submit Form" /></td>
+        </tr>
+    </table>
 }
+
+<script type="text/javascript">
+    $(function () {
+        $('.datetimepicker').datetimepicker();
+    });
+</script>
