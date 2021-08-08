@@ -11,17 +11,18 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using app.ems.api.Controllers.Interfaces;
 using app.ems.api.Models;
+using app.ems.api.Repository;
 
 namespace app.ems.api.Controllers
 {
     public class EmployeeController : ApiController , IEmployee
     {
-        private EmployeeManagementSystemEntities db = new EmployeeManagementSystemEntities();
+        private EmployeeRepository repository = new EmployeeRepository();
 
         // GET: api/Employee
         public IQueryable<Employee> GetEmployees()
         {
-            return db.Employees;
+            return repository.GetEmployees();
         }
 
         //// GET: api/Employee/5
@@ -52,15 +53,13 @@ namespace app.ems.api.Controllers
                 return BadRequest();
             }
 
-            db.Entry(employee).State = EntityState.Modified;
-
             try
             {
-                await db.SaveChangesAsync();
+                repository.AmendEmployee(employee);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmployeeExists(employee.Id))
+                if (!repository.EmployeeExists(employee.Id))
                 {
                     return NotFound();
                 }
@@ -82,8 +81,7 @@ namespace app.ems.api.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Employees.Add(employee);
-            await db.SaveChangesAsync();
+            repository.AddEmployee(employee);
 
             return CreatedAtRoute("DefaultApi", new { id = employee.Id }, employee);
         }
@@ -92,32 +90,14 @@ namespace app.ems.api.Controllers
         [ResponseType(typeof(Employee))]
         public async Task<IHttpActionResult> DeleteEmployee(int id)
         {
-            Employee employee = await db.Employees.FindAsync(id);
-            if (employee == null)
+            if (!repository.EmployeeExists(id))
             {
                 return NotFound();
             }
 
-            db.Employees.Remove(employee);
-            await db.SaveChangesAsync();
-
-            return Ok(employee);
+            repository.RemoveEmployee(id);
+            return Ok(id);
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        bool EmployeeExists(int id)
-        {
-            return db.Employees.Count(e => e.Id == id) > 0;
-        }
-
-        
+       
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace app.ems.api.Repository
 {
-    interface IRepository
+    interface IEmployeeRepository
     {
         IQueryable<Employee> GetEmployees();
 

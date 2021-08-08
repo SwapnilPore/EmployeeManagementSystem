@@ -8,7 +8,7 @@ using System.Web;
 
 namespace app.ems.api.Repository
 {
-    public class Repository : IRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private EmployeeManagementSystemEntities db = new EmployeeManagementSystemEntities();
 
