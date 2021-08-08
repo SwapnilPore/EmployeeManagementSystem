@@ -25,28 +25,29 @@ namespace app.ems.api.Controllers
         }
 
         //// GET: api/Employee/5
-        //[ResponseType(typeof(Employee))]
-        //public async Task<IHttpActionResult> GetEmployee(int id)
-        //{
-        //    Employee employee = await db.Employees.FindAsync(id);
-        //    if (employee == null)
-        //    {
-        //        return NotFound();
-        //    }
+       /* [ResponseType(typeof(Employee))]
+        public async Task<IHttpActionResult> GetEmployee(int id)
+        {
+            Employee employee = await db.Employees.FindAsync(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(employee);
-        //}
+            return Ok(employee);
+        }
+       */
 
         // PUT: api/Employee/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutEmployee(int id, Employee employee)
+        public async Task<IHttpActionResult> PutEmployee(Employee employee)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != employee.Id)
+            if (employee.Id == 0)
             {
                 return BadRequest();
             }
@@ -59,7 +60,7 @@ namespace app.ems.api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmployeeExists(id))
+                if (!EmployeeExists(employee.Id))
                 {
                     return NotFound();
                 }

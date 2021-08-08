@@ -11,7 +11,7 @@ namespace app.ems.api.Controllers.Interfaces
     public interface IEmployee
     {
         IQueryable<Employee> GetEmployees();
-        Task<IHttpActionResult> PutEmployee(int Id, Employee employee);
+        Task<IHttpActionResult> PutEmployee(Employee employee);
         Task<IHttpActionResult> PostEmployee(Employee employee);
         Task<IHttpActionResult> DeleteEmployee(int id);
     }
