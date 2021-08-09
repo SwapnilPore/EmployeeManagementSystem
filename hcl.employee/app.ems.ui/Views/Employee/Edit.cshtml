@@ -1,11 +1,11 @@
 ﻿@model app.ems.ui.Models.AddEmployeeModel
 
 @*@{
-    ViewBag.Title = "Index";
-}*@
+        ViewBag.Title = "Index";
+    }*@
 <h3><b>Modify employee detail:</b></h3>
 
-@using (Html.BeginForm("Edit", "Employee", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new { id = "frmEdit" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Employee.Id)
@@ -13,24 +13,24 @@
 
         <tr>
             <td>Enter Name: </td>
-            <td>@Html.TextBoxFor(m => m.Employee.Name)</td>
+            <td>@Html.TextBoxFor(m => m.Employee.Name, new { id = "employeeName" })</td>
         </tr>
         <tr>
             <td>Date of birth: </td>
             <td>
-                @Html.TextBox("Employee.DateOfBirth", Model.Employee.DateOfBirth, "{0:yyyy-MM-dd}", new { @style = "width:100%", type = "date" })
+                @Html.TextBox("Employee.DateOfBirth", Model.Employee.DateOfBirth, "{0:yyyy-MM-dd}", new { @style = "width:100%", type = "date", id = "EmployeeDateOfBirth" })
             </td>
         </tr>
         <tr>
             <td>Email: </td>
-            <td>@Html.TextBoxFor(m => m.Employee.Email)</td>
+            <td>@Html.TextBoxFor(m => m.Employee.Email, new { id = "employeeEmail" })</td>
         </tr>
         <tr>
             <td>Project: </td>
             <td>
                 @Html.DropDownListFor(m => m.Employee.ProjectId,
                     Model.Projects,
-                    "Select Project")
+                    "Select Project", new { id = "EmployeeProjectId" })
             </td>
         </tr>
         <tr>
@@ -38,18 +38,21 @@
             <td>
                 @Html.DropDownListFor(m => m.Employee.DesignationId,
                     Model.Designations,
-                    "Select Designation")
+                    "Select Designation", new { id = "EmployeeDesignationId" })
             </td>
         </tr>
         <tr>
             <td>Phone number: </td>
-            <td>@Html.TextBoxFor(m => m.Employee.PhoneNumber)</td>
+            <td>@Html.TextBoxFor(m => m.Employee.PhoneNumber, new { id = "employeePhone" })</td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Save"  /></td>
+            <td colspan="2"><button value="Save" onclick="ValidateForm();">Submit</button></td>
         </tr>
     </table>
 }
+
+
+
 
 <script>
     $(document).ready(function () {
@@ -59,4 +62,86 @@
             changeyear: true
         });
     });
+
+    function ValidateForm() {
+        var isValid = true;
+
+        console.log('validation');
+
+        if (isValid) {
+            if ($('#employeeName').val() == '' || $('#employeeName').val() == "null") {
+                alert("Name cannot be empty!");
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            if ($('#EmployeeDateOfBirth').val() == '' || $('#EmployeeDateOfBirth').val() == "null") {
+                alert('Provide date!');
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            if (!$('#employeeEmail').val() == '') {
+                //var temp = !isEmail($('#employeeEmail').val());
+                // todo do a regex
+                //if (!isEmail($('#employeeEmail').val())) {
+                //    isValid = false;
+                //    alert("Invalid email!");
+                //}
+                //alert($('#employeeEmail').val());
+                //Do validation and return true or false
+                //alert(!isEmail($('#employeeEmail').val()));
+            }
+            else {
+                isValid = false;
+                alert("Email cannot be empty!");
+            }
+        }
+
+        if (isValid) {
+            if ($('#EmployeeProjectId').val() == "null" || $('#EmployeeProjectId').val() == '') {
+                alert("Project should be selected!");
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            if ($('#EmployeeDesignationId').val() == "null" || $('#EmployeeDesignationId').val() == '') {
+                alert("Designation should be selected!");
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            if ($('#employeePhone').val() == '' || $('#employeePhone').val() == "null") {
+                alert("Phone number cannot be empty!");
+                isValid = false;
+            }
+        }
+
+
+        if (!isValid) {
+            $('#frmEdit').submit(function (e) {
+                console.log('submitForm');
+                e.preventDefault(e);
+                window.history.back();
+            });
+        }
+    }
+
+    function isEmail(email) {
+        var EmailRegex = /^([a-zA-Z0-9_.+-])+(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return EmailRegex.test(email);
+    }
+
+    function ValidateDates(startDate, endDate) {
+        if ((Date.parse(endDate) <= Date.parse(startDate))) {
+            alert("End Date should be greater than From Date....!");
+            document.getElementById("AdvEndDate").value = "";
+        }
+    }
+
+
 </script>
