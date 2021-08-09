@@ -1,53 +1,56 @@
 ﻿@model app.ems.ui.Models.AddEmployeeModel
 
 @*@{
-    ViewBag.Title = "Index";
-}*@
+        ViewBag.Title = "Index";
+    }*@
 <h3><b>Create new employee:</b></h3>
 
 @using (Html.BeginForm("Create", "Employee", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<table>
+    <table>
 
-    <tr>
-        <td>Enter Name: </td>
-        <td>@Html.TextBoxFor(m => m.Employee.Name)</td>
-    </tr>
-    <tr>
-        <td>Date of birth: </td>
-        <td>
-            @Html.EditorFor(m => m.Employee.DateOfBirth, new { htmlAttributes = new { @class = "form-control datetimepicker", type = "date" } })
-        </td>
-    </tr>
-    <tr>
-        <td>Email: </td>
-        <td>@Html.TextBoxFor(m => m.Employee.Email)</td>
-    </tr>
-    <tr>
-        <td>Project: </td>
-        <td>
-            @Html.DropDownListFor(m => m.Employee.ProjectId,
-                Model.Projects,
-                "Select Project")
-        </td>
-    </tr>
-    <tr>
-        <td>Designation: </td>
-        <td>
-            @Html.DropDownListFor(m => m.Employee.DesignationId,
-                Model.Designations,
-                "Select Designation")
-        </td>
-    </tr>
-    <tr>
-        <td>Phone number: </td>
-        <td>@Html.TextBoxFor(m => m.Employee.PhoneNumber)</td>
-    </tr>
-    <tr>
-        <td colspan="2"><input type="submit" value="Save"  /></td>
-    </tr>
-</table>
+        <tr>
+            <td>Enter Name: </td>
+            <td><input type="text" id="employeeName" name="employeeName" value="@Model.Employee.Name"</td>
+            @*<td>@Html.TextBoxFor(m => m.Employee.Name)</td>*@
+        </tr>
+        <tr>
+            <td>Date of birth: </td>
+            <td>
+                @Html.EditorFor(m => m.Employee.DateOfBirth, new { htmlAttributes = new { @class = "form-control datetimepicker", type = "date" } })
+            </td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td><input type="text" id="employeeEmail" name="employeeEmail" value="@Model.Employee.Email"</td>
+            @*<td>@Html.TextBoxFor(m => m.Employee.Email)</td>*@
+        </tr>
+        <tr>
+            <td>Project: </td>
+            <td>
+                @Html.DropDownListFor(m => m.Employee.ProjectId,
+                    Model.Projects,
+                    "Select Project")
+            </td>
+        </tr>
+        <tr>
+            <td>Designation: </td>
+            <td>
+                @Html.DropDownListFor(m => m.Employee.DesignationId,
+                    Model.Designations,
+                    "Select Designation")
+            </td>
+        </tr>
+        <tr>
+            <td>Phone number: </td>
+            <td><input type="text" id="employeePhone" name="employeePhone" value="@Model.Employee.PhoneNumber"</td>
+            @*<td>@Html.TextBoxFor(m => m.Employee.PhoneNumber)</td>*@
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Save" onclick="ValidateForm();" /></td>
+        </tr>
+    </table>
 }
 
 <script>
@@ -57,8 +60,57 @@
             changemonth: true,
             changeyear: true
         });
-        
     });
 
-    
+    function ValidateForm() {
+        var isValid = true;
+
+
+        //Do validation
+
+
+        if ($('#employeeName').val() == '' || $('#employeeName').val() == "null") {
+            alert("Name cannot be empty!");
+            isValid = false;
+        }
+
+        if (isValid) {
+            if ($('#employeePhone').val() == '' || $('#employeePhone').val() == "null") {
+                alert("Phone number cannot be empty!");
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            if (!$('#employeeEmail').val() == '') {
+                alert($('#employeeEmail').val());
+                //Do validation and return true or false
+                alert(!isEmail($('#employeeEmail').val());
+                //if (!isEmail($('#employeeEmail').val())) {
+                //    isValid = false;
+                //}
+            }
+        }
+
+        if (!isValid) {
+            $('#frmCreate').submit(function (e) {
+                e.preventDefault(e);
+                window.history.back();
+            });
+        }
+    }
+
+    function isEmail(email) {
+        var EmailRegex = /^([a-zA-Z0-9_.+-])+(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return EmailRegex.test(email);
+    }
+
+    function ValidateDates(startDate, endDate) {
+        if ((Date.parse(endDate) <= Date.parse(startDate))) {
+            alert("End Date should be greater than From Date....!");
+            document.getElementById("AdvEndDate").value = "";
+        }
+    }
+
+
 </script>
