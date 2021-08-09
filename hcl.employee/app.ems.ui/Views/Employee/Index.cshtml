@@ -9,6 +9,9 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+
+
 <table class="table">
     <tr>
         <th>
@@ -34,7 +37,7 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr id="@item.Id">
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -62,11 +65,14 @@
 
 </table>
 
+<div id="success_message" style="color: green;"></div>
+<div id="error_message" style="color: red;"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
+
     function deleteEmployee(employeeId) {
-        console.log("Method | employeeId: " + employeeId + " | " + { id: employeeId, collection: null });
         if (confirm("Are you sure to delete this user? ")) {
-            console.log("txt ");
             $.ajax({
                 type: "POST",
                 url: "/Employee/Delete",
@@ -74,11 +80,25 @@
                 dataType: "html",
                 contentType: 'application/json; charset=utf-8',
                 success: function (result) {
-                    alert("Employee deleted successfully!!");
+                    console.log("Successfully deleted.");
+
+                    $('tr#' + employeeId).css("background-color", "red");
+                    $('#success_message').html("Successfully deleted!").fadeIn("slow").focus();
+                    setTimeout(function () {
+                        $('#success_message').fadeOut("slow");
+                    }, 2000);
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
                 },
                 error: function (result) {
-                    alert("Error occured!! ");
                     console.log(result.responseText);
+
+                    $('#error_message').html("Eror occured! Cannot delete.").fadeIn("slow").focus();
+                    setTimeout(function () {
+                        $('#error_message').fadeOut("slow");
+                    }, 5000);
                 }
             });
         }
