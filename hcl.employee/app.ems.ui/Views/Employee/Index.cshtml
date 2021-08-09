@@ -32,31 +32,62 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DesignationId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DesignationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                <a onclick="deleteEmployee('@item.Id')">Delete</a>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<script type="text/javascript">
+    function deleteEmployee(employeeId) {
+        console.log("Method | employeeId: " + employeeId + " | " + { id: employeeId, collection: null });
+        if (confirm("Are you sure to delete this user? ")) {
+            console.log("txt ");
+            $.ajax({
+                type: "POST",
+                url: "/Employee/Delete",
+                data: JSON.stringify({ id: employeeId, collection: null }),
+                dataType: "html",
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    alert("Employee deleted successfully!!");
+                },
+                error: function (result) {
+                    alert("Error occured!! ");
+                    console.log(result.responseText);
+                }
+            });
+        }
+    }
+</script>
+
+
+<style type="text/css">
+    a:hover {
+        cursor: pointer;
+    }
+</style>

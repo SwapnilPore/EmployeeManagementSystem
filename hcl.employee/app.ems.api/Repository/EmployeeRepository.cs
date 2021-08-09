@@ -36,10 +36,10 @@ namespace app.ems.api.Repository
             db.SaveChangesAsync();
         }
 
-        public bool EmployeeExists(int id)
+       public bool EmployeeExists(int id)
         {
             var employee = db.Employees.FirstOrDefault(m => m.Id == id);
-            return employee == null;
+            return employee != null;
         }
     }
 }

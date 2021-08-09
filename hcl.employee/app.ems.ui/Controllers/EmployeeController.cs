@@ -113,9 +113,23 @@ namespace app.ems.ui.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                HttpResponseMessage result;
 
-                return RedirectToAction("Index");
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(id)
+;
+                var data = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
+
+
+                using (var deleteEmployeeTask = EmployeeApiClient.webApiClient.DeleteAsync("Employee/" + id.ToString()))
+                {
+                    deleteEmployeeTask.Wait();
+                    result = deleteEmployeeTask.Result;
+                }
+
+                if (result.IsSuccessStatusCode)
+                    return RedirectToAction("Index");
+                else
+                    return View();
             }
             catch
             {
