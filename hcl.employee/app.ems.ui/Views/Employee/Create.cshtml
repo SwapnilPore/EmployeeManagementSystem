@@ -5,33 +5,31 @@
     }*@
 <h3><b>Create new employee:</b></h3>
 
-@using (Html.BeginForm("Create", "Employee", FormMethod.Post))
+@using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { id = "frmCreate" }))
 {
     @Html.AntiForgeryToken()
     <table>
 
         <tr>
             <td>Enter Name: </td>
-            <td><input type="text" id="employeeName" name="employeeName" value="@Model.Employee.Name"</td>
-            @*<td>@Html.TextBoxFor(m => m.Employee.Name)</td>*@
+            <td>@Html.TextBoxFor(m => m.Employee.Name, new { id = "employeeName" })</td>
         </tr>
         <tr>
             <td>Date of birth: </td>
             <td>
-                @Html.EditorFor(m => m.Employee.DateOfBirth, new { htmlAttributes = new { @class = "form-control datetimepicker", type = "date" } })
+                @Html.EditorFor(m => m.Employee.DateOfBirth, new { htmlAttributes = new { @class = "form-control datetimepicker", type = "date", id = "EmployeeDateOfBirth" } })
             </td>
         </tr>
         <tr>
             <td>Email: </td>
-            <td><input type="text" id="employeeEmail" name="employeeEmail" value="@Model.Employee.Email"</td>
-            @*<td>@Html.TextBoxFor(m => m.Employee.Email)</td>*@
+            <td>@Html.TextBoxFor(m => m.Employee.Email, new { id = "employeeEmail" })</td>
         </tr>
         <tr>
             <td>Project: </td>
             <td>
                 @Html.DropDownListFor(m => m.Employee.ProjectId,
                     Model.Projects,
-                    "Select Project")
+                    "Select Project", new { id = "EmployeeProjectId" })
             </td>
         </tr>
         <tr>
@@ -39,16 +37,20 @@
             <td>
                 @Html.DropDownListFor(m => m.Employee.DesignationId,
                     Model.Designations,
-                    "Select Designation")
+                    "Select Designation", new { id = "EmployeeDesignationId" })
             </td>
         </tr>
         <tr>
             <td>Phone number: </td>
-            <td><input type="text" id="employeePhone" name="employeePhone" value="@Model.Employee.PhoneNumber"</td>
-            @*<td>@Html.TextBoxFor(m => m.Employee.PhoneNumber)</td>*@
+            <td>@Html.TextBoxFor(m => m.Employee.PhoneNumber, new { id = "employeePhone" })</td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Save" onclick="ValidateForm();" /></td>
+            <td colspan="2"><button value="Save" onclick="ValidateForm();">Submit</button></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div id="errorMsg" style="color: red;"></div>
+            </td>
         </tr>
     </table>
 }
@@ -65,13 +67,52 @@
     function ValidateForm() {
         var isValid = true;
 
+        console.log('validation');
 
-        //Do validation
+        if (isValid) {
+            if ($('#employeeName').val() == '' || $('#employeeName').val() == "null") {
+                alert("Name cannot be empty!");
+                isValid = false;
+            }
+        }
 
+        if (isValid) {
+            if ($('#EmployeeDateOfBirth').val() == '' || $('#EmployeeDateOfBirth').val() == "null") {
+                alert('Provide date!');
+                isValid = false;
+            }
+        }
 
-        if ($('#employeeName').val() == '' || $('#employeeName').val() == "null") {
-            alert("Name cannot be empty!");
-            isValid = false;
+        if (isValid) {
+            if (!$('#employeeEmail').val() == '') {
+                //var temp = !isEmail($('#employeeEmail').val());
+                // todo do a regex
+                //if (!isEmail($('#employeeEmail').val())) {
+                //    isValid = false;
+                //    alert("Invalid email!");
+                //}
+                //alert($('#employeeEmail').val());
+                //Do validation and return true or false
+                //alert(!isEmail($('#employeeEmail').val()));
+            }
+            else {
+                isValid = false;
+                alert("Email cannot be empty!");
+            }
+        }
+
+        if (isValid) {
+            if ($('#EmployeeProjectId').val() == "null" || $('#EmployeeProjectId').val() == '') {
+                alert("Project should be selected!");
+                isValid = false;
+            }
+        }
+
+        if (isValid) {
+            if ($('#EmployeeDesignationId').val() == "null" || $('#EmployeeDesignationId').val() == '') {
+                alert("Designation should be selected!");
+                isValid = false;
+            }
         }
 
         if (isValid) {
@@ -81,19 +122,10 @@
             }
         }
 
-        if (isValid) {
-            if (!$('#employeeEmail').val() == '') {
-                alert($('#employeeEmail').val());
-                //Do validation and return true or false
-                alert(!isEmail($('#employeeEmail').val());
-                //if (!isEmail($('#employeeEmail').val())) {
-                //    isValid = false;
-                //}
-            }
-        }
 
         if (!isValid) {
             $('#frmCreate').submit(function (e) {
+                console.log('submitForm');
                 e.preventDefault(e);
                 window.history.back();
             });
