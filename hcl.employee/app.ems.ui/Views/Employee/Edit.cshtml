@@ -1,9 +1,9 @@
 ﻿@model app.ems.ui.Models.AddEmployeeModel
 
-@{
+@*@{
     ViewBag.Title = "Index";
-}
-<h3><b>Create new employee:</b></h3>
+}*@
+<h3><b>Modify employee detail:</b></h3>
 
 @using (Html.BeginForm("Edit", "Employee", FormMethod.Post))
 {
@@ -46,7 +46,7 @@
             <td>@Html.TextBoxFor(m => m.Employee.PhoneNumber)</td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Submit Form" /></td>
+            <td colspan="2"><input type="submit" value="Save"  /></td>
         </tr>
     </table>
 }
