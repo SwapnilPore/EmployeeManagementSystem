@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="EmployeeManagementSystemModel.Project" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <AssociationConnector Association="EmployeeManagementSystemModel.FK_Employee_Designation" ManuallyRouted="false" />
         <AssociationConnector Association="EmployeeManagementSystemModel.FK_Employee_Project" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EmployeeManagementSystemModel.Login" Width="1.5" PointX="3.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,17 +12,10 @@ namespace app.ems.api.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class Login
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public System.DateTime DateOfBirth { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public int DesignationId { get; set; }
-        public int ProjectId { get; set; }
-    
-        public virtual Designation Designation { get; set; }
-        public virtual Project Project { get; set; }
+        public decimal Id { get; set; }
+        public string UserId { get; set; }
+        public string Password { get; set; }
     }
 }
