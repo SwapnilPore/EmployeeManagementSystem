@@ -43,7 +43,7 @@ namespace app.ems.api.Controllers
         /// <returns></returns>
         [Route("api/user/validate")]
         [HttpPost]
-        public IHttpActionResult Validate([FromBody] string userId, [FromBody] string password)
+        public IHttpActionResult Validate(string userId, string password) // [FromBody] missing
         {
             if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(password))
             {

@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\hcl.employee",
+    "\\hcl.employee\\app.ems.ui",
+    "\\hcl.employee\\app.ems.ui\\Controllers"
   ],
+  "SelectedNode": "\\hcl.employee\\hcl.employee.sln",
   "PreviewInSolutionExplorer": false
 }

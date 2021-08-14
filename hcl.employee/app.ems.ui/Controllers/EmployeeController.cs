@@ -115,11 +115,6 @@ namespace app.ems.ui.Controllers
             {
                 HttpResponseMessage result;
 
-                var json = Newtonsoft.Json.JsonConvert.SerializeObject(id)
-;
-                var data = new System.Net.Http.StringContent(json, Encoding.UTF8, "application/json");
-
-
                 using (var deleteEmployeeTask = EmployeeApiClient.webApiClient.DeleteAsync("Employee/" + id.ToString()))
                 {
                     deleteEmployeeTask.Wait();
