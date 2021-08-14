@@ -26,7 +26,7 @@ namespace app.ems.api.Controllers
 
         // GET: api/Project/5
         [ResponseType(typeof(Project))]
-        public async Task<IHttpActionResult> GetProject([FromBody] int id)
+        public async Task<IHttpActionResult> GetProject( int id)
         {
             if(id<=0)
             {

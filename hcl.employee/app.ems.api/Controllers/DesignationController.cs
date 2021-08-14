@@ -25,7 +25,7 @@ namespace app.ems.api.Controllers
 
         // GET: api/Designation/5
         [ResponseType(typeof(Designation))]
-        public async Task<IHttpActionResult> GetDesignation([FromBody] int id)
+        public async Task<IHttpActionResult> GetDesignation(int id)
         {
             if (id <= 0)
             {
