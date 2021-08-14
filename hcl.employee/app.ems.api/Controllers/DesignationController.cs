@@ -25,8 +25,12 @@ namespace app.ems.api.Controllers
 
         // GET: api/Designation/5
         [ResponseType(typeof(Designation))]
-        public async Task<IHttpActionResult> GetDesignation(int id)
+        public async Task<IHttpActionResult> GetDesignation([FromBody] int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest("Please Check the Parameters.");
+            }
             Designation designation = await db.Designations.FindAsync(id);
             if (designation == null)
             {
