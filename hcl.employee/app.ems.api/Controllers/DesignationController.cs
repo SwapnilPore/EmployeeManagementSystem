@@ -27,10 +27,6 @@ namespace app.ems.api.Controllers
         [ResponseType(typeof(Designation))]
         public async Task<IHttpActionResult> GetDesignation(int id)
         {
-            if (id <= 0)
-            {
-                return BadRequest("Please Check the Parameters.");
-            }
             Designation designation = await db.Designations.FindAsync(id);
             if (designation == null)
             {

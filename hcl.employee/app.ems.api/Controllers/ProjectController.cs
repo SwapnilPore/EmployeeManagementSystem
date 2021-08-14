@@ -28,10 +28,6 @@ namespace app.ems.api.Controllers
         [ResponseType(typeof(Project))]
         public async Task<IHttpActionResult> GetProject( int id)
         {
-            if(id<=0)
-            {
-                return BadRequest("Please check the parameter");
-            }
             Project project = await db.Projects.FindAsync(id);
             if (project == null)
             {
